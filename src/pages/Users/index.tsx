@@ -1,14 +1,11 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { useEffect, useState } from "react";
 import { UserType } from "../../types/UserType";
 import { GetAllUsersController } from "./model";
 
-
-
 export default function Users() {
 
-  const [dataSource, setDataSource] = useState<UserType[]>();
-
+  const [dataSource, setDataSource] = useState<UserType[]>([]);
 
   useEffect(() => {
     GetAllUsersController()
@@ -39,9 +36,18 @@ export default function Users() {
       dataIndex: 'admin',
       key: 'admin',
       render: (flag: boolean) => (flag ? <>admin</> : <>n admin</>)
-
- 
-    }
+    },
+    {
+      title: 'Action',
+      dataIndex: '',
+      key: 'x',
+      render: () => (
+        <div style={{display: 'flex'}}>
+        <Button type="primary">Editar</Button>
+        <Button>Deletar</Button>
+        </div>
+      )
+    },
   ];
 
 
