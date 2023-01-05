@@ -2,9 +2,10 @@ import { Button, Table } from "antd";
 import { useEffect, useState } from "react";
 import { UserType } from "../../types/UserType";
 import { GetAllUsersController } from "./model";
+import { useNavigate } from "react-router-dom";
 
 export default function Users() {
-
+  const navigate = useNavigate();
   const [dataSource, setDataSource] = useState<UserType[]>([]);
 
   useEffect(() => {
@@ -14,6 +15,11 @@ export default function Users() {
       })
   }, [])
 
+
+  function LogOut() {
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
 
   const columns = [
     {
@@ -57,7 +63,7 @@ export default function Users() {
         columns={columns}
         dataSource={dataSource}
       />
-
+  <Button onClick={LogOut}>Logout</Button>
     </>
   )
 }

@@ -1,13 +1,25 @@
-import React from "react"
+import { useEffect, useState } from "react"
 import Login from "./pages/Login"
-import Users from "./pages/Users"
+import { BrowserRouter as Router } from 'react-router-dom'
+import Routes from "./routes";
+import AuthContext from "./context/AuthContext";
+
 
 function App() {
 
+  let logged = false;
+
+  if(localStorage.token) {
+    console.log("tem token")
+    logged = true;
+  }
+
   return (
-    <div className="App">
-      <Users/>
-    </div>
+    <AuthContext.Provider value={{ signed: logged }}>
+    <>
+      <Routes />
+    </>
+  </AuthContext.Provider>
   )
 }
 
