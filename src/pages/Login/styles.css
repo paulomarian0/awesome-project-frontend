@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  border: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  background-color: purple;
+  height: 100vh;
+}
+
+.card-form{
+width: 100%;
+}
+
+.card-image{
+  width: 100%;
+  margin: 0;
+}
