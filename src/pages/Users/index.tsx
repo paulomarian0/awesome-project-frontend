@@ -1,23 +1,18 @@
-import { Button, Table } from "antd";
+import { Button, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { UserType } from "../../types/UserType";
 import { GetAllUsersController } from "./model";
-import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 
 export default function Users() {
-  const navigate = useNavigate();
   const [dataSource, setDataSource] = useState<UserType[]>([]);
 
   useEffect(() => {
     GetAllUsersController()
       .then((response) => {
         setDataSource(response)
-        console.log(response)
       })
   }, [])
-
-
 
   const columns = [
     {
@@ -44,12 +39,11 @@ export default function Users() {
     {
       title: 'Action',
       dataIndex: '',
-      key: 'x',
-      render: () => (
-        <div style={{ display: 'flex' }}>
-          <Button type="primary">Editar</Button>
-          <Button>Deletar</Button>
-        </div>
+      render: (_: any, record: any) => (
+        <Space >
+          <Button type="primary" onClick={() => console.log(record.id)}>Edit </Button>
+          <Button danger type="primary" onClick={() => console.log(record.id)}>Delete</Button>
+        </Space>
       )
     },
   ];
@@ -57,7 +51,7 @@ export default function Users() {
 
   return (
     <>
-    <Header />
+      <Header />
       <Table
         columns={columns}
         dataSource={dataSource}

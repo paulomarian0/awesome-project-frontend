@@ -1,13 +1,16 @@
 import React, { createContext, useState } from "react";
 
-export const AuthContext = createContext({});
+export interface IAuthProvider {
+  children?: any
+}
 
-function AuthProvider ({children}) {
-  
+export const AuthContext = createContext({} as any);
+
+function AuthProvider({ children }: IAuthProvider) {
   const [name, setName] = useState()
 
-  return(
-    <AuthContext.Provider value={{name, setName}}>
+  return (
+    <AuthContext.Provider value={{ name, setName }}>
       {children}
     </AuthContext.Provider>
   )

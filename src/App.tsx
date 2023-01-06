@@ -11,8 +11,6 @@ function App() {
 
   const isLogged = !!localStorage.getItem('token')
 
-  console.log("islogged", isLogged)
-
   return (
 
     <AuthProvider>

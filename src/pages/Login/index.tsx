@@ -3,22 +3,25 @@ import './styles.css';
 import { LoginType } from '../../types/LoginType';
 import { useNavigate } from 'react-router-dom';
 import { LoginService } from './service';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { setName } = useContext(AuthContext);
 
   async function onFinish(values: LoginType) {
     const data = await LoginService(values.login, values.password)
-    .then((response: any) => {
-      localStorage.setItem('token', response.data.access_token)
-      navigate('/users')
+      .then((response: any) => {
+        localStorage.setItem('token', response.data.access_token)
+        navigate('/users')
+        setName(response.data.name)
+        return response.data;
+      })
+      .catch((error) => {
+        notification.error({ message: error.data.message });
+      })
 
-      return response.data;
-    })
-    .catch((error) => {
-      notification.error({ message: error.data.message });
-    })
-  
     return data;
   };
 
