@@ -3,6 +3,7 @@ import Login from "./pages/Login"
 import { BrowserRouter as Router } from 'react-router-dom'
 import Routes from "./routes";
 import AuthContext from "./context/AuthContext";
+import MainRoutes from "./routes/MainRoutes";
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   return (
     <AuthContext.Provider value={{ signed: logged }}>
     <>
-      <Routes />
+      <MainRoutes />
     </>
   </AuthContext.Provider>
   )

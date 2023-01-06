@@ -1,23 +1,38 @@
 import React, { useEffect } from 'react';
-import { Button, Form, Input } from 'antd';
-import Card from 'antd/es/card';
+import { Button, Form, Input, notification, Card } from 'antd';
 import './styles.css';
-import { LoginController } from './model';
 import { LoginType } from '../../types/LoginType';
 import { useNavigate } from 'react-router-dom';
+import { LoginService } from './service';
 
 export default function Login() {
   const navigate = useNavigate();
 
-  function onFinish(values: LoginType) {
-    LoginController(values.login, values.password)
-      .then((response) => {
-        navigate('/users')
-      }).catch((error) => {
-        console.log(error)
-      })
+  async function onFinish(values: LoginType) {
+    const data = await LoginService(values.login, values.password)
+    .then((response: any) => {
+      localStorage.setItem('token', response.data.access_token)
+      navigate('/users')
+      return response.data;
+    })
+    .catch((error) => {
+      notification.error({ message: error.data.message });
+    })
+  
+    return data;
   };
 
+  // LoginService(data)
+  // .then((res: any) => {
+  //   localStorage.setItem("@token", res.data.Token);
+  //   GetUserInfor().then((res) => {
+  //     setUserInfor({ ...res, token: localStorage.getItem("@token") });
+  //     history.push("/dashboard/transporte");
+  //   });
+  // })
+  // .catch((err) => {
+  //   notification.error({ message: err.data.message });
+  // });
   // useEffect(() => {
   //   localStorage.removeItem("token");
   // },[])
