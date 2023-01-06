@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { Button, Form, Input, notification, Card } from 'antd';
 import './styles.css';
 import { LoginType } from '../../types/LoginType';
@@ -13,6 +12,7 @@ export default function Login() {
     .then((response: any) => {
       localStorage.setItem('token', response.data.access_token)
       navigate('/users')
+
       return response.data;
     })
     .catch((error) => {
@@ -21,21 +21,6 @@ export default function Login() {
   
     return data;
   };
-
-  // LoginService(data)
-  // .then((res: any) => {
-  //   localStorage.setItem("@token", res.data.Token);
-  //   GetUserInfor().then((res) => {
-  //     setUserInfor({ ...res, token: localStorage.getItem("@token") });
-  //     history.push("/dashboard/transporte");
-  //   });
-  // })
-  // .catch((err) => {
-  //   notification.error({ message: err.data.message });
-  // });
-  // useEffect(() => {
-  //   localStorage.removeItem("token");
-  // },[])
 
   return (
     <div className="container">

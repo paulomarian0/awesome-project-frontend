@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { UserType } from "../../types/UserType";
 import { GetAllUsersController } from "./model";
 import { useNavigate } from "react-router-dom";
+import Header from "../../components/Header";
 
 export default function Users() {
   const navigate = useNavigate();
@@ -12,14 +13,11 @@ export default function Users() {
     GetAllUsersController()
       .then((response) => {
         setDataSource(response)
+        console.log(response)
       })
   }, [])
 
 
-  function LogOut() {
-    localStorage.removeItem('token')
-    navigate('/login')
-  }
 
   const columns = [
     {
@@ -48,9 +46,9 @@ export default function Users() {
       dataIndex: '',
       key: 'x',
       render: () => (
-        <div style={{display: 'flex'}}>
-        <Button type="primary">Editar</Button>
-        <Button>Deletar</Button>
+        <div style={{ display: 'flex' }}>
+          <Button type="primary">Editar</Button>
+          <Button>Deletar</Button>
         </div>
       )
     },
@@ -59,11 +57,11 @@ export default function Users() {
 
   return (
     <>
+    <Header />
       <Table
         columns={columns}
         dataSource={dataSource}
       />
-  <Button onClick={LogOut}>Logout</Button>
     </>
   )
 }

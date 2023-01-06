@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react"
 import Login from "./pages/Login"
 import { BrowserRouter as Router } from 'react-router-dom'
-import Routes from "./routes";
 import AuthContext from "./context/AuthContext";
-import MainRoutes from "./routes/MainRoutes";
+import PrivatedRoute from "./routes/PrivatedRoute";
+import PublicRoutes from "./routes/PublicRoutes";
+import AuthProvider from "./context/AuthContext";
 
 
 function App() {
 
-  let logged = false;
+  const isLogged = !!localStorage.getItem('token')
 
-  if(localStorage.token) {
-    console.log("tem token")
-    logged = true;
-  }
+  console.log("islogged", isLogged)
 
   return (
-    <AuthContext.Provider value={{ signed: logged }}>
-    <>
-      <MainRoutes />
-    </>
-  </AuthContext.Provider>
+
+    <AuthProvider>
+      {isLogged ?
+        <PrivatedRoute />
+        :
+        <PublicRoutes />}
+    </AuthProvider>
   )
 }
 

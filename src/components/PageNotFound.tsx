@@ -10,7 +10,7 @@ export default function PageNotFound() {
       status="404"
       title="404"
       subTitle="Sorry, the page you visited does not exist."
-      extra={<Button type="primary" onClick={() => navigate('/users')}>Back Home</Button>}
+      extra={<Button type="primary" onClick={() => navigate('/login')}>Back Home</Button>}
     />
   )
 }
