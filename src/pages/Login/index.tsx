@@ -3,19 +3,16 @@ import './styles.css';
 import { LoginType } from '../../types/LoginType';
 import { useNavigate } from 'react-router-dom';
 import { LoginService } from './service';
-import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setName } = useContext(AuthContext);
 
   async function onFinish(values: LoginType) {
     const data = await LoginService(values.login, values.password)
       .then((response: any) => {
         localStorage.setItem('token', response.data.access_token)
+        localStorage.setItem('userName', response.data.name)
         navigate('/users')
-        setName(response.data.name)
         return response.data;
       })
       .catch((error) => {
@@ -58,11 +55,6 @@ export default function Login() {
             </Button>
           </Form.Item>
         </Form>
-      </Card>
-      <Card className='card-image'>
-        <div >
-          <img src='https://www.meme-arsenal.com/memes/3e48dd79ca6bbb33b6e8c8008abf1a40.jpg' width={"100%"} />
-        </div>
       </Card>
     </div>
 

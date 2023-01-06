@@ -6,15 +6,16 @@ body {
 .container {
   display: flex;
   align-items: center;
-  background-color: purple;
+  background-image: linear-gradient(yellow, purple);
   height: 100vh;
+  justify-content: center;
 }
 
-.card-form{
-width: 100%;
+.card-form {
+  width: 50%;
 }
 
-.card-image{
+.card-image {
   width: 100%;
   margin: 0;
 }
