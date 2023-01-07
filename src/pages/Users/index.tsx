@@ -1,14 +1,13 @@
 import { Button, Popconfirm, Space, Table } from "antd";
 import { useEffect, useState } from "react";
-import { UserType } from "../../types/UserType";
+import { IUserResponseType } from "../../types/Users/UserType";
 import { DeleteOneUserController, GetAllUsersController } from "./model";
 import Header from "../../components/Header";
-import ModalFormEdit from "../../components/Users/ModalFormEdit";
 import ModalFormCreate from "../../components/Users/ModalFormCreate";
-
+import ModalFormUpdate from "../../components/Users/ModalFormUpdate";
 
 export default function Users() {
-  const [dataSource, setDataSource] = useState<UserType[]>([]);
+  const [listUsers, setListUsers] = useState<IUserResponseType[]>([]);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalCreate, setShowModalCreate] = useState(false);
 
@@ -27,39 +26,40 @@ export default function Users() {
   async function getAllUsers() {
     GetAllUsersController()
       .then((response) => {
-        setDataSource(response)
+        setListUsers(response)
       })
   }
 
   useEffect(() => {
     getAllUsers();
   }, [])
-  
+
   const columns = [
-    {
-      title: 'Id',
-      dataIndex: 'id',
-      key: 'id',
-    },
     {
       title: 'Login',
       dataIndex: 'login',
       key: 'login',
+      width:'30%'
     },
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+      width:'30%'
+
     },
     {
       title: 'Admin',
       dataIndex: 'admin',
       key: 'admin',
+      width:'30%',
       render: (flag: boolean) => (flag ? <>admin</> : <>n admin</>)
     },
     {
       title: 'Action',
       dataIndex: '',
+      key: 'id',
+      width:'10%',
       render: (_: any, record: any) => (
         <Space >
           <Button type="primary"
@@ -87,12 +87,13 @@ export default function Users() {
       <div style={{ textAlign: 'end' }}>
         <Button onClick={() => setShowModalCreate(true)}>Create a new user</Button>
       </div>
+
       <Table
         columns={columns}
-        dataSource={dataSource}
+        dataSource={listUsers}
       />
 
-      <ModalFormEdit
+      <ModalFormUpdate
         visible={showModalEdit}
         setVisible={setShowModalEdit}
         id={userId}

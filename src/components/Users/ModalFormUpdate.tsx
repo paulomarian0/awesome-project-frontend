@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Button, Modal, Form, Input } from "antd";
-import { UpdateOneUserService } from "../../pages/Users/service";
+import { UpdateOneUserController } from "../../pages/Users/model";
+import { IRequestUpdateUser } from "../../types/Users/UserType";
 
 interface IPropsModal {
   setVisible: (boolean: boolean) => void,
@@ -8,7 +8,7 @@ interface IPropsModal {
   id: number | undefined
 }
 
-export default function ModalFormEdit(props: IPropsModal) {
+export default function ModalFormUpdate(props: IPropsModal) {
 
   const userId = props.id
 
@@ -16,11 +16,11 @@ export default function ModalFormEdit(props: IPropsModal) {
     props.setVisible(false);
   };
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: IRequestUpdateUser) => {
     if (!userId)
       return
 
-    UpdateOneUserService(values, userId)
+    UpdateOneUserController(values, userId)
       .then(() => {
         props.setVisible(false);
       })

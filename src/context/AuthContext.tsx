@@ -1,10 +1,10 @@
 import React, { createContext, useState } from "react";
 
 export interface IAuthProvider {
-  children?: any
+  children?: JSX.Element
 }
 
-export const AuthContext = createContext({} as any);
+export const AuthContext = createContext({});
 
 function AuthProvider({ children }: IAuthProvider) {
   const [name, setName] = useState()

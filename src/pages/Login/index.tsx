@@ -1,17 +1,18 @@
 import { Button, Form, Input, notification, Card } from 'antd';
 import './styles.css';
-import { LoginType } from '../../types/LoginType';
+import { LoginType } from '../../types/Login/LoginType';
 import { useNavigate } from 'react-router-dom';
 import { LoginService } from './service';
+import { AxiosResponse } from 'axios';
 
 export default function Login() {
   const navigate = useNavigate();
 
   async function onFinish(values: LoginType) {
-    const data = await LoginService(values.login, values.password)
-      .then((response: any) => {
+    const data = await LoginService(values)
+      .then((response: AxiosResponse) => {
         localStorage.setItem('token', response.data.access_token)
-        localStorage.setItem('userName', response.data.name)
+        localStorage.setItem('userName', response.data.userData.user)
         navigate('/users')
         return response.data;
       })

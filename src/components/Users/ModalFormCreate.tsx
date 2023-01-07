@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Button, Modal, Form, Input, Switch } from "antd";
 import { CreateNewUserController } from "../../pages/Users/model";
+import { IRequestCreateUser } from "../../types/Users/UserType";
 
 interface IPropsModal {
   setVisible: (boolean: boolean) => void,
@@ -13,7 +13,7 @@ export default function ModalFormCreate(props: IPropsModal) {
     props.setVisible(false);
   };
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: IRequestCreateUser) => {
     console.log(values)
     CreateNewUserController(values)
     .then(() => {

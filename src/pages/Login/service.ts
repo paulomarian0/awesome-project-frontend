@@ -1,10 +1,10 @@
 import Axios from '../../Services/Config/API';
-import { LoginType } from '../../types/LoginType';
+import { LoginType } from '../../types/Login/LoginType';
 
-async function LoginService(login: string, password: string) {
+async function LoginService(values: LoginType) {
   const responseData = await Axios.post<Promise<LoginType>>('/login', {
-   login,
-   password
+    login: values.login,
+    password: values.password
   })
     .then((response) => {
       return response;

@@ -1,20 +1,8 @@
 import Axios from '../../Services/Config/API';
-
-interface IRequestCreateUser {
-  login: string,
-  password: string,
-  name: string,
-  admin: boolean
-}
-
-interface IRequestUpdateUser {
-  login: string,
-  password: string,
-  name: string,
-}
+import { IRequestCreateUser, IRequestUpdateUser, IUserResponseType } from '../../types/Users/UserType';
 
 async function GetAllUsersService() {
-  const responseData = await Axios.get<Promise<any>>('/users')
+  const responseData = await Axios.get<Promise<IUserResponseType>>('/users')
     .then((response) => {
       return response;
     })
@@ -26,7 +14,7 @@ async function GetAllUsersService() {
 }
 
 async function DeleteOneUserService(id: number) {
-  const responseData = await Axios.delete<Promise<any>>(`/users/?id=${id}`)
+  const responseData = await Axios.delete<Promise<IUserResponseType>>(`/users/?id=${id}`)
     .then((response) => {
       return response;
     }).catch((error) => {
@@ -37,7 +25,7 @@ async function DeleteOneUserService(id: number) {
 }
 
 async function CreateNewUserService(requestData: IRequestCreateUser) {
-  const responseData = await Axios.post<Promise<any>>(`/users/`, {
+  const responseData = await Axios.post<Promise<IUserResponseType>>(`/users/`, {
     login: requestData.login,
     name: requestData.name,
     password: requestData.password,
@@ -53,7 +41,7 @@ async function CreateNewUserService(requestData: IRequestCreateUser) {
 }
 
 async function UpdateOneUserService(requestData: IRequestUpdateUser, id: number) {
-  const responseData = await Axios.put<Promise<any>>(`users/?id=${id}`, {
+  const responseData = await Axios.put<Promise<IUserResponseType>>(`users/?id=${id}`, {
     login: requestData.login,
     password: requestData.password,
     name: requestData.name,
