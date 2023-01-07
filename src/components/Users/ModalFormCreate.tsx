@@ -10,7 +10,7 @@ interface IPropsModal {
 }
 
 export default function ModalFormCreate(props: IPropsModal) {
-
+  const [form] = Form.useForm();
   const { setNeedUpdateListUser } = useContext(AuthContext);
 
   const handleCancel = () => {
@@ -23,6 +23,7 @@ export default function ModalFormCreate(props: IPropsModal) {
       .then(() => {
         setNeedUpdateListUser(true);
         props.setVisible(false);
+        form.resetFields()
       })
   };
 
@@ -40,6 +41,7 @@ export default function ModalFormCreate(props: IPropsModal) {
         initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete="off"
+        form={form}
       >
         <Form.Item
           label="Username"
