@@ -6,7 +6,6 @@ import { GetAllUsersService, DeleteOneUserService, CreateNewUserService, UpdateO
 async function GetAllUsersController() {
   const data = await GetAllUsersService()
     .then((response: AxiosResponse) => {
-      console.log(response)
       return response.data;
     })
     .catch((error) => {

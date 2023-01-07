@@ -11,7 +11,7 @@ interface IPropsModal {
 
 export default function ModalFormCreate(props: IPropsModal) {
 
-  const { setNeedUpdateListUser} = useContext(AuthContext);
+  const { setNeedUpdateListUser } = useContext(AuthContext);
 
   const handleCancel = () => {
     props.setVisible(false);
@@ -20,10 +20,10 @@ export default function ModalFormCreate(props: IPropsModal) {
   const onFinish = (values: IRequestCreateUser) => {
     console.log(values)
     CreateNewUserController(values)
-    .then(() => {
-      setNeedUpdateListUser(true);
-      props.setVisible(false);    
-    })
+      .then(() => {
+        setNeedUpdateListUser(true);
+        props.setVisible(false);
+      })
   };
 
   return (
@@ -68,6 +68,7 @@ export default function ModalFormCreate(props: IPropsModal) {
         <Form.Item
           label="Admin?"
           name="admin"
+          valuePropName="checked"
           initialValue={false}
         >
           <Switch />

@@ -12,12 +12,8 @@ export default function Users() {
   const [listUsers, setListUsers] = useState<IUserResponseType[]>([]);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalCreate, setShowModalCreate] = useState(false);
-
-  const {needUpdateListUser, setNeedUpdateListUser} = useContext(AuthContext)
-
+  const { needUpdateListUser, setNeedUpdateListUser } = useContext(AuthContext)
   const [userId, setUserId] = useState();
-
-  console.log(needUpdateListUser)
 
   const confirmPop = () => {
     if (!userId)
@@ -46,27 +42,27 @@ export default function Users() {
       title: 'Login',
       dataIndex: 'login',
       key: 'login',
-      width:'30%'
+      width: '30%'
     },
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      width:'30%'
+      width: '30%'
 
     },
     {
       title: 'Admin',
       dataIndex: 'admin',
       key: 'admin',
-      width:'30%',
+      width: '30%',
       render: (flag: boolean) => (flag ? <>admin</> : <>n admin</>)
     },
     {
       title: 'Action',
       dataIndex: '',
       key: 'id',
-      width:'10%',
+      width: '10%',
       render: (_: any, record: any) => (
         <Space >
           <Button type="primary"
@@ -98,7 +94,7 @@ export default function Users() {
       <Table
         columns={columns}
         dataSource={listUsers}
-        rowKey="id" 
+        rowKey="id"
       />
 
       <ModalFormUpdate
