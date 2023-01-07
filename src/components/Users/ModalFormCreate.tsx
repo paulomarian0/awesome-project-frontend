@@ -1,6 +1,8 @@
 import { Button, Modal, Form, Input, Switch } from "antd";
 import { CreateNewUserController } from "../../pages/Users/model";
 import { IRequestCreateUser } from "../../types/Users/UserType";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 interface IPropsModal {
   setVisible: (boolean: boolean) => void,
@@ -8,6 +10,8 @@ interface IPropsModal {
 }
 
 export default function ModalFormCreate(props: IPropsModal) {
+
+  const { setNeedUpdateListUser} = useContext(AuthContext);
 
   const handleCancel = () => {
     props.setVisible(false);
@@ -17,6 +21,7 @@ export default function ModalFormCreate(props: IPropsModal) {
     console.log(values)
     CreateNewUserController(values)
     .then(() => {
+      setNeedUpdateListUser(true);
       props.setVisible(false);    
     })
   };

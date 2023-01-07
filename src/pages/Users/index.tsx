@@ -5,13 +5,19 @@ import { DeleteOneUserController, GetAllUsersController } from "./model";
 import Header from "../../components/Header";
 import ModalFormCreate from "../../components/Users/ModalFormCreate";
 import ModalFormUpdate from "../../components/Users/ModalFormUpdate";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Users() {
   const [listUsers, setListUsers] = useState<IUserResponseType[]>([]);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalCreate, setShowModalCreate] = useState(false);
 
+  const {needUpdateListUser, setNeedUpdateListUser} = useContext(AuthContext)
+
   const [userId, setUserId] = useState();
+
+  console.log(needUpdateListUser)
 
   const confirmPop = () => {
     if (!userId)
@@ -27,12 +33,13 @@ export default function Users() {
     GetAllUsersController()
       .then((response) => {
         setListUsers(response)
+        setNeedUpdateListUser(false);
       })
   }
 
   useEffect(() => {
     getAllUsers();
-  }, [])
+  }, [needUpdateListUser])
 
   const columns = [
     {
@@ -91,6 +98,7 @@ export default function Users() {
       <Table
         columns={columns}
         dataSource={listUsers}
+        rowKey="id" 
       />
 
       <ModalFormUpdate

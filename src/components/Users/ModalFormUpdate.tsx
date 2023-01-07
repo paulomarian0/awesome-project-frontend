@@ -1,6 +1,8 @@
 import { Button, Modal, Form, Input } from "antd";
 import { UpdateOneUserController } from "../../pages/Users/model";
 import { IRequestUpdateUser } from "../../types/Users/UserType";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 interface IPropsModal {
   setVisible: (boolean: boolean) => void,
@@ -9,6 +11,7 @@ interface IPropsModal {
 }
 
 export default function ModalFormUpdate(props: IPropsModal) {
+  const { setNeedUpdateListUser} = useContext(AuthContext);
 
   const userId = props.id
 
@@ -22,6 +25,7 @@ export default function ModalFormUpdate(props: IPropsModal) {
 
     UpdateOneUserController(values, userId)
       .then(() => {
+        setNeedUpdateListUser(true);
         props.setVisible(false);
       })
   }
