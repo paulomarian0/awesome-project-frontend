@@ -34,7 +34,7 @@ export default function Login() {
           autoComplete="off"
         >
           <Form.Item
-            label="Username"
+            label="Login"
             name="login"
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
