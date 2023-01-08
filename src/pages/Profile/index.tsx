@@ -1,10 +1,9 @@
-import React from "react";
+import { FormChangePassword } from "../../components/Profile/FormChangePassword";
 
 export default function Profile() {
-  return(
-
+  return (
     <>
-    THIS IS PROFILE
+      <FormChangePassword />
     </>
   )
 }

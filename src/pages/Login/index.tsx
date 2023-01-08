@@ -14,6 +14,8 @@ export default function Login() {
         localStorage.setItem('token', response.data.access_token)
         localStorage.setItem('userName', response.data.userData.user)
         localStorage.setItem('isAdmin', response.data.userData.admin)
+        localStorage.setItem('userId', response.data.userData.userId)
+
         navigate('/users')
         return response.data;
       })

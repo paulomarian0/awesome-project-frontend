@@ -7,9 +7,10 @@ export interface IAuthProvider {
 export const AuthContext = createContext({} as any);
 
 function AuthProvider({ children }: IAuthProvider) {
-  const [name, setName] = useState()
   const [needUpdateListUser, setNeedUpdateListUser] = useState(false)
+  const [name, setName] = useState()
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userId, setUserId] = useState();
 
   return (
     <AuthContext.Provider value={{
@@ -18,7 +19,9 @@ function AuthProvider({ children }: IAuthProvider) {
       needUpdateListUser,
       setNeedUpdateListUser,
       isAdmin,
-      setIsAdmin
+      setIsAdmin,
+      userId,
+      setUserId
     }}>
       {children}
     </AuthContext.Provider>
