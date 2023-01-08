@@ -13,6 +13,7 @@ export default function Login() {
       .then((response: AxiosResponse) => {
         localStorage.setItem('token', response.data.access_token)
         localStorage.setItem('userName', response.data.userData.user)
+        localStorage.setItem('isAdmin', response.data.userData.admin)
         navigate('/users')
         return response.data;
       })

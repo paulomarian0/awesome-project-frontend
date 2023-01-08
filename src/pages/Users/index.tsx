@@ -13,7 +13,7 @@ export default function Users() {
   const [listUsers, setListUsers] = useState<IUserResponseType[]>([]);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalCreate, setShowModalCreate] = useState(false);
-  const { needUpdateListUser, setNeedUpdateListUser } = useContext(AuthContext)
+  const { needUpdateListUser, setNeedUpdateListUser, isAdmin } = useContext(AuthContext)
   const [userId, setUserId] = useState();
   const [userDataForUpdate, setUserDataForUpdate] = useState<IRequestUpdateUser>({} as IRequestUpdateUser);
 
@@ -26,6 +26,12 @@ export default function Users() {
         getAllUsers()
       })
   };
+
+  function thisUserIsAdmin() {
+    const thisUserIsAdmin = isAdmin === 'true' ? true : false
+
+    return thisUserIsAdmin
+  }
 
   async function getAllUsers() {
     GetAllUsersController()
@@ -51,7 +57,6 @@ export default function Users() {
       dataIndex: 'name',
       key: 'name',
       width: '40%'
-
     },
     {
       title: 'Admin',
@@ -61,12 +66,12 @@ export default function Users() {
       render: (flag: boolean) => (flag ?
         <Tooltip title="This user is an admin">
           <ToolFilled />
-        </Tooltip> 
-        : 
+        </Tooltip>
+        :
         <Tooltip title="This user is a simple user (not admin)">
           <UserOutlined />
-        </Tooltip> 
-        )
+        </Tooltip>
+      )
     },
     {
       title: 'Action',
@@ -74,21 +79,29 @@ export default function Users() {
       key: 'id',
       width: '10%',
       render: (_: any, record: any) => (
-        <Space >
-          <Button type="primary"
+        <Space>
+          <Button
+            disabled={!thisUserIsAdmin()}
+            type="primary"
             onClick={() => {
               setShowModalEdit(true)
               setUserId(record.id)
               setUserDataForUpdate(record)
             }}>Edit</Button>
           <Popconfirm
+            disabled={!thisUserIsAdmin()}
             title="Delete the task"
             description="Are you sure to delete this task?"
             okText="Yes"
             cancelText="No"
             onConfirm={confirmPop}
           >
-            <Button danger type="primary" onClick={() => setUserId(record.id)}>Delete</Button>
+            <Button
+              disabled={!thisUserIsAdmin()}
+              danger type="primary"
+              onClick={() =>
+                setUserId(record.id)
+              }>Delete</Button>
           </Popconfirm>
         </Space>
       )
@@ -98,9 +111,12 @@ export default function Users() {
   return (
     <>
       <Header />
-      <div style={{ textAlign: 'end' }}>
-        <Button onClick={() => setShowModalCreate(true)}>Create a new user</Button>
-      </div>
+
+      {thisUserIsAdmin() &&
+        <div style={{ textAlign: 'end' }}>
+          <Button onClick={() => setShowModalCreate(true)}>Create a new user</Button>
+        </div>
+      }
 
       <Table
         columns={columns}

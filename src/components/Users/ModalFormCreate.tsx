@@ -18,7 +18,6 @@ export default function ModalFormCreate(props: IPropsModal) {
   };
 
   const onFinish = (values: IRequestCreateUser) => {
-    console.log(values)
     CreateNewUserController(values)
       .then(() => {
         setNeedUpdateListUser(true);

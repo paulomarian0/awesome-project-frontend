@@ -7,7 +7,7 @@ import { AuthContext } from "../context/AuthContext";
 
 export default function Header() {
   const navigate = useNavigate();
-  const {name, setName} = useContext(AuthContext);
+  const {name, setName, isAdmin, setIsAdmin} = useContext(AuthContext);
 
   function LogOut() {
     localStorage.clear()
@@ -16,6 +16,7 @@ export default function Header() {
 
   useEffect(() => {
     setName(localStorage.getItem('userName'))
+    setIsAdmin(localStorage.getItem('isAdmin'))
   },[])
 
   return(
