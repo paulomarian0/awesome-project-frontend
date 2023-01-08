@@ -12,7 +12,14 @@ function AuthProvider({ children }: IAuthProvider) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   return (
-    <AuthContext.Provider value={{ name, setName, needUpdateListUser, setNeedUpdateListUser, isAdmin, setIsAdmin }}>
+    <AuthContext.Provider value={{
+      name,
+      setName,
+      needUpdateListUser,
+      setNeedUpdateListUser,
+      isAdmin,
+      setIsAdmin
+    }}>
       {children}
     </AuthContext.Provider>
   )

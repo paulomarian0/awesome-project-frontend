@@ -1,4 +1,4 @@
-import { Button, Popconfirm, Space, Table, Tooltip } from "antd";
+import { Button, Card, Popconfirm, Space, Table, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { IRequestUpdateUser, IUserResponseType } from "../../types/Users/UserType";
 import { DeleteOneUserController, GetAllUsersController } from "./model";
@@ -59,7 +59,7 @@ export default function Users() {
       width: '40%'
     },
     {
-      title: 'Admin',
+      title: 'User/Admin',
       dataIndex: 'admin',
       key: 'admin',
       width: '10%',
@@ -112,17 +112,19 @@ export default function Users() {
     <>
       <Header />
 
-      {thisUserIsAdmin() &&
-        <div style={{ textAlign: 'end' }}>
-          <Button onClick={() => setShowModalCreate(true)}>Create a new user</Button>
-        </div>
-      }
+      <Card bordered={false}>
+        {thisUserIsAdmin() &&
+          <div style={{ paddingBottom: '10px' }}>
+            <Button type="primary" onClick={() => setShowModalCreate(true)}>Create a new user</Button>
+          </div>
+        }
 
-      <Table
-        columns={columns}
-        dataSource={listUsers}
-        rowKey="id"
-      />
+        <Table
+          columns={columns}
+          dataSource={listUsers}
+          rowKey="id"
+        />
+      </Card>
 
       <ModalFormUpdate
         visible={showModalEdit}
