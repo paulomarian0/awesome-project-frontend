@@ -1,4 +1,4 @@
-import { Button, Dropdown } from "antd"
+import { Button, Card, Dropdown } from "antd"
 import { useNavigate } from "react-router-dom"
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -24,7 +24,7 @@ export default function Header() {
     {
       key: '1',
       label: (
-        <a href="https://www.google.com">
+        <a onClick={() => navigate('/profile')}>
           View profile
         </a>
       ),
@@ -38,9 +38,11 @@ export default function Header() {
     },
   ];
   return (
-    <div style={{ textAlign: 'end', margin: '10px' }}>
+    <div style={{ justifyContent: 'end', display: 'grid', textAlign: 'center' }}>
       <Dropdown menu={{ items }} placement="bottomLeft">
-        <Avatar size="large" icon={<UserOutlined />} />
+        <Card title={`Hello ${name}`}>
+          <Avatar size="large" icon={<UserOutlined />} />
+        </Card>
       </Dropdown>
     </div>
   )
