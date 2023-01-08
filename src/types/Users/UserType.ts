@@ -6,14 +6,15 @@ export interface IUserResponseType {
 }
 
 export interface IRequestCreateUser {
-  login: string,
-  password: string,
-  name: string,
+  login: string
+  password: string
+  name: string
   admin: boolean
 }
 
 export interface IRequestUpdateUser {
-  login: string,
-  password: string,
-  name: string,
+  id:number
+  login: string
+  password: string
+  name: string
 }

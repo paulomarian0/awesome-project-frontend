@@ -1,23 +1,29 @@
 import { Button, Modal, Form, Input } from "antd";
 import { UpdateOneUserController } from "../../pages/Users/model";
 import { IRequestUpdateUser } from "../../types/Users/UserType";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 interface IPropsModal {
   setVisible: (boolean: boolean) => void,
   visible: boolean
-  id: number | undefined
+  userDataForUpdate: IRequestUpdateUser
 }
 
 export default function ModalFormUpdate(props: IPropsModal) {
-  const { setNeedUpdateListUser} = useContext(AuthContext);
-
-  const userId = props.id
+  const [form] = Form.useForm();
+  const { setNeedUpdateListUser } = useContext(AuthContext);
+  const userData = props.userDataForUpdate
+  const userId = props.userDataForUpdate.id
 
   const handleCancel = () => {
     props.setVisible(false);
   };
+
+  //this useeffect fix a bug https://stackoverflow.com/questions/62336340/cannot-update-a-component-while-rendering-a-different-component-warning
+  useEffect(() => {
+    form.setFieldsValue(userData)
+  }, [userData])
 
   const onFinish = (values: IRequestUpdateUser) => {
     if (!userId)
@@ -26,12 +32,14 @@ export default function ModalFormUpdate(props: IPropsModal) {
     UpdateOneUserController(values, userId)
       .then(() => {
         setNeedUpdateListUser(true);
+        form.resetFields()
         props.setVisible(false);
       })
   }
 
   return (
     <Modal
+      forceRender
       title="Edit a user"
       open={props.visible}
       footer={false}
@@ -44,6 +52,7 @@ export default function ModalFormUpdate(props: IPropsModal) {
         initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete="off"
+        form={form}
       >
         <Form.Item
           label="Username"
@@ -59,14 +68,6 @@ export default function ModalFormUpdate(props: IPropsModal) {
           rules={[{ required: true, message: "Please input your login!" }]}
         >
           <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

@@ -1,12 +1,13 @@
-import { Button, Popconfirm, Space, Table } from "antd";
+import { Button, Popconfirm, Space, Table, Tooltip } from "antd";
 import { useEffect, useState } from "react";
-import { IUserResponseType } from "../../types/Users/UserType";
+import { IRequestUpdateUser, IUserResponseType } from "../../types/Users/UserType";
 import { DeleteOneUserController, GetAllUsersController } from "./model";
 import Header from "../../components/Header";
 import ModalFormCreate from "../../components/Users/ModalFormCreate";
 import ModalFormUpdate from "../../components/Users/ModalFormUpdate";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { ToolFilled, UserOutlined } from '@ant-design/icons'
 
 export default function Users() {
   const [listUsers, setListUsers] = useState<IUserResponseType[]>([]);
@@ -14,6 +15,7 @@ export default function Users() {
   const [showModalCreate, setShowModalCreate] = useState(false);
   const { needUpdateListUser, setNeedUpdateListUser } = useContext(AuthContext)
   const [userId, setUserId] = useState();
+  const [userDataForUpdate, setUserDataForUpdate] = useState<IRequestUpdateUser>({} as IRequestUpdateUser);
 
   const confirmPop = () => {
     if (!userId)
@@ -42,21 +44,29 @@ export default function Users() {
       title: 'Login',
       dataIndex: 'login',
       key: 'login',
-      width: '30%'
+      width: '40%'
     },
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      width: '30%'
+      width: '40%'
 
     },
     {
       title: 'Admin',
       dataIndex: 'admin',
       key: 'admin',
-      width: '30%',
-      render: (flag: boolean) => (flag ? <>admin</> : <>n admin</>)
+      width: '10%',
+      render: (flag: boolean) => (flag ?
+        <Tooltip title="This user is an admin">
+          <ToolFilled />
+        </Tooltip> 
+        : 
+        <Tooltip title="This user is a simple user (not admin)">
+          <UserOutlined />
+        </Tooltip> 
+        )
     },
     {
       title: 'Action',
@@ -69,6 +79,7 @@ export default function Users() {
             onClick={() => {
               setShowModalEdit(true)
               setUserId(record.id)
+              setUserDataForUpdate(record)
             }}>Edit</Button>
           <Popconfirm
             title="Delete the task"
@@ -100,7 +111,7 @@ export default function Users() {
       <ModalFormUpdate
         visible={showModalEdit}
         setVisible={setShowModalEdit}
-        id={userId}
+        userDataForUpdate={userDataForUpdate}
       />
 
       <ModalFormCreate
