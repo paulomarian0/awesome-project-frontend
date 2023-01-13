@@ -1,0 +1,7 @@
+.profile-container {
+  justify-content: center;
+  align-items: center;
+  background: purple;
+  display: flex;
+  height: 100vh;
+}

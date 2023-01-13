@@ -4,6 +4,8 @@ import { UpdatePasswordController } from '../../pages/Profile/model';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import ProfileType from '../../types/Profile/ProfileType';
+import './styles.css';
+import Header from '../Header/Header';
 
 export function FormChangePassword() {
   const { userId, setUserId } = useContext(AuthContext);
@@ -17,9 +19,11 @@ export function FormChangePassword() {
   }, [])
 
   return (
-    <div style={{ justifyContent: 'center', alignItems: 'center', background: 'purple', display: 'flex', height: '100vh' }}>
+    <>
+    <Header/>
+    <div className='profile-container'>
 
-      <Card style={{ width: '50%' }}>
+      <Card title="Change your Password" style={{ width: '50%', textAlign: 'center' }}>
 
         <Form
           name="basic"
@@ -60,6 +64,6 @@ export function FormChangePassword() {
         </Form>
       </Card>
     </div>
-
+    </>
   )
 }

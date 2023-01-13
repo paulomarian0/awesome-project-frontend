@@ -1,10 +1,13 @@
 import { Button, Card, Dropdown } from "antd"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import type { MenuProps } from 'antd';
+import './styles.css';
+import Logo from '../../images/logo-generic.png';
+
 
 export default function Header() {
   const navigate = useNavigate();
@@ -38,12 +41,20 @@ export default function Header() {
     },
   ];
   return (
-    <div style={{ justifyContent: 'end', display: 'grid', textAlign: 'center' }}>
-      <Dropdown menu={{ items }} placement="bottomLeft">
-        <Card title={`Hello ${name}`}>
-          <Avatar size="large" icon={<UserOutlined />} />
-        </Card>
-      </Dropdown>
+    <div className="container-header">
+
+    <Link to="/">
+      <img src={Logo} width="100px"/>
+    </Link>
+      <a href="/users">
+        Users
+      </a >
+      <a href="/profile">
+        Profile
+      </a>
+      <a onClick={LogOut}  >
+        Logout
+      </a>
     </div>
   )
 }

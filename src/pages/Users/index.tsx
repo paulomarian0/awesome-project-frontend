@@ -2,7 +2,7 @@ import { Button, Card, Popconfirm, Space, Table, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { IRequestUpdateUser, IUserResponseType } from "../../types/Users/UserType";
 import { DeleteOneUserController, GetAllUsersController } from "./model";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import ModalFormCreate from "../../components/Users/ModalFormCreate";
 import ModalFormUpdate from "../../components/Users/ModalFormUpdate";
 import { useContext } from "react";
